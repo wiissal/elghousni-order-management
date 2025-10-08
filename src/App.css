@@ -1,0 +1,50 @@
+/*navbar styles*/
+.navbar {
+  background-color: #708238; /* Olive green */
+  padding: 30px;
+  color: white; /*white text*/
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.navbar-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+/* App.css or Sidebar.css */
+.sidebar {
+  width: 200px;
+  background-color: #f4f1e9; /* beige */
+  color: #2e2e2e;
+  height: 150vh;
+  padding: 20px;
+  box-shadow: 5px 0 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  margin: 90px 0 0 0;
+}
+
+.sidebar-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #4d4d4d;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 10px;
+}
+
+.sidebar-menu li {
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.sidebar-menu li:hover {
+  color: #69894d; /* olive green */
+  font-weight: 700;
+}
