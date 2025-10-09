@@ -3,6 +3,7 @@
 import Navbar from "./components/navbar";
 import Sidebar from "./components/Sidebar";
 import OrderCard from "./components/OrderCard";
+import OrderForm from "./components/OrderForm";
 // Import the global CSS file to apply styles
 import "./App.css";
 // Create the main App component
@@ -17,6 +18,7 @@ function App() {
       <div className="content">
          {/* OrderCard component displays the list of products as cards */}
         <OrderCard />
+        <OrderForm />
       </div>
     </div>
   );
