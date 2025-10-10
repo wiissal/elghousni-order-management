@@ -1,29 +1,58 @@
 // App.jsx
-// import elements from components folder
-import Navbar from "./components/navbar";
+import React, { useState } from "react";
+import Navbar from "./components/navbar"; // lowercase as you requested
 import Sidebar from "./components/Sidebar";
-import OrderCard from "./components/OrderCard";
 import OrderForm from "./components/OrderForm";
-// Import the global CSS file to apply styles
+import OrderList from "./components/OrderList";
+import FilterBar from "./components/FilterBar";
+import OrderSummary from "./components/OrderSummary";
+import OrderCard from "./components/OrderCard"; // optional if you want product cards
 import "./App.css";
-// Create the main App component
+
 function App() {
+  const [orders, setOrders] = useState([]);
+  const [filter, setFilter] = useState("all");
+
+  // Add a new order
+  const handleAddOrder = (newOrder) => {
+    setOrders([...orders, newOrder]);
+  };
+
+  // Change current filter
+  const handleFilterChange = (status) => {
+    setFilter(status);
+  };
+
+  // Filter orders for OrderList
+  const filteredOrders =
+    filter === "all" ? orders : orders.filter((o) => o.status === filter);
+
   return (
-     // The main container for the whole app
     <div className="App">
-      {/* Navbar is fixed at the top it contains the title */}
       <Navbar />
-        {/* Sidebar component is usually placed on the left side for navigation */}
       <Sidebar />
       <div className="content">
-         {/* OrderCard component displays the list of products as cards */}
+        {/* Only show OrderCard if you want product selection cards */}
         <OrderCard />
-        <OrderForm />
+
+        {/* Form to create new orders */}
+        <OrderForm onAddOrder={handleAddOrder} />
+
+        {/* Summary of all orders */}
+        <OrderSummary orders={orders} />
+
+        {/* Filter buttons */}
+        <FilterBar currentFilter={filter} onFilterChange={handleFilterChange} />
+
+        {/* List of orders based on filter */}
+        <OrderList orders={filteredOrders} />
+      </div>
+
+      <div className="footer">
+        <p>&copy; 2025 Elghousni Olive Cooperative. All rights reserved.</p>
       </div>
     </div>
   );
 }
 
 export default App;
-
-

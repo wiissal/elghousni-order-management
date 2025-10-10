@@ -1,10 +1,14 @@
-import "../App.css"; // i will add styling separately in App.css
-function Navbar() {
+// Navbar.jsx
+import "../App.css";
+
+function navbar() {
   return (
     <header className="navbar">
-      <h1 className="navbar-title"> Coopérative Elghousni "Order Management System"</h1>
+      <h1 className="navbar-title">
+        Coopérative Elghousni "Order Management System"
+      </h1>
     </header>
   );
 }
 
-export default Navbar;
+export default navbar;
