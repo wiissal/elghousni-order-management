@@ -1,21 +1,15 @@
+// Sidebar.jsx
 import "../App.css";
 
-function Sidebar() {
-  // Function to scroll to section
-  const scrollToSection = (id) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
+function Sidebar({ setActivePart }) {
   return (
     <div className="sidebar">
       <h2 className="sidebar-title">Menu</h2>
       <ul className="sidebar-menu">
-        <li onClick={() => scrollToSection("dashboard")}>Dashboard</li>
-        <li onClick={() => scrollToSection("orders")}>Orders</li>
-        <li onClick={() => scrollToSection("products")}>Products</li>
+        <li onClick={() => setActivePart("orderCard")}>Products</li>     {/* Changed from "Order Card" to "Products" */}
+        <li onClick={() => setActivePart("orderForm")}>Order Form</li>  {/* Changed from "Add Order" to "Order Form" */}
+        <li onClick={() => setActivePart("orderSummary")}>Summary</li>  {/* Changed from "Order Summary" to "Summary" */}
+        <li onClick={() => setActivePart("filterBar")}>Filter Orders</li>  {/* Changed from "Filter Orders" to "Filter Orders" */}
       </ul>
     </div>
   );

@@ -1,21 +1,26 @@
 // App.jsx
 import React, { useState } from "react";
-import Navbar from "./components/navbar"; // lowercase as you requested
+import Navbar from "./components/navbar";
 import Sidebar from "./components/Sidebar";
 import OrderForm from "./components/OrderForm";
 import OrderList from "./components/OrderList";
 import FilterBar from "./components/FilterBar";
 import OrderSummary from "./components/OrderSummary";
-import OrderCard from "./components/OrderCard"; // optional if you want product cards
+import OrderCard from "./components/OrderCard";
 import "./App.css";
 
 function App() {
-  const [orders, setOrders] = useState([]);
-  const [filter, setFilter] = useState("all");
+  // STATE VARIABLES
+  const [orders, setOrders] = useState([]); // stores all orders
+
+  const [filter, setFilter] = useState("all"); // current filter ("all", "completed", etc.)
+  const [activePart, setActivePart] = useState("orderCard"); // which part of the UI is visible
+
+  // FUNCTIONS
 
   // Add a new order
   const handleAddOrder = (newOrder) => {
-    setOrders([...orders, newOrder]);
+    setOrders([...orders, newOrder]); // add new order to orders array
   };
 
   // Change current filter
@@ -27,30 +32,51 @@ function App() {
   const filteredOrders =
     filter === "all" ? orders : orders.filter((o) => o.status === filter);
 
+  // render 
   return (
     <div className="App">
-      <Navbar />
-      <Sidebar />
-      <div className="content">
-        {/* Only show OrderCard if you want product selection cards */}
-        <OrderCard />
+      {/* Navbar */}
+      <Navbar setActivePart={setActivePart}>
+        <div style={{ width: "100%" }}>
+          <div className="main-container">
+            {/* Sidebar with buttons to switch sections */}
 
-        {/* Form to create new orders */}
-        <OrderForm onAddOrder={handleAddOrder} />
+            {/* Main content area */}
+            <div className="content">
+              {activePart === "orderCard" && <OrderCard />}
+              {activePart === "orderForm" && (
+                <OrderForm onAddOrder={handleAddOrder} />
+              )}
+              {activePart === "orderSummary" && (
+                <OrderSummary orders={orders} />
+              )}
+              {activePart === "orderList" && (
+                <>
+                  <FilterBar
+                    currentFilter={filter}
+                    onFilterChange={setFilter}
+                  />
+                  <OrderList orders={filteredOrders} />
+                </>
+              )}
+              {activePart === "filterBar" && (
+                <>
+                  <FilterBar
+                    currentFilter={filter}
+                    onFilterChange={setFilter}
+                  />
+                  <OrderList orders={filteredOrders} />
+                </>
+              )}
+            </div>
+          </div>
 
-        {/* Summary of all orders */}
-        <OrderSummary orders={orders} />
-
-        {/* Filter buttons */}
-        <FilterBar currentFilter={filter} onFilterChange={handleFilterChange} />
-
-        {/* List of orders based on filter */}
-        <OrderList orders={filteredOrders} />
-      </div>
-
-      <div className="footer">
-        <p>&copy; 2025 Elghousni Olive Cooperative. All rights reserved.</p>
-      </div>
+          {/* Footer */}
+          <div className="footer">
+            <p>&copy; 2025 Elghousni Olive Cooperative. All rights reserved.</p>
+          </div>
+        </div>
+      </Navbar>
     </div>
   );
 }

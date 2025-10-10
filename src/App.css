@@ -16,7 +16,6 @@
   color: white;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
@@ -37,7 +36,6 @@
   height: 100vh;
   padding: 60px 20px;
   box-shadow: 5px 0 8px rgba(0, 0, 0, 0.1);
-  position: fixed;
 }
 
 .sidebar-title {
@@ -66,9 +64,8 @@
    MAIN CONTENT
 ======================= */
 .content {
-  margin-left: 220px; /* Space for sidebar */
-  margin-top: 100px; /* Space for navbar */
   padding: 20px;
+  min-height: 90vh;
 }
 
 /* =======================
@@ -419,6 +416,7 @@
   margin-top: 50px;
   border-top: 4px solid #5e6d30;
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
 }
 
 .footer p {
