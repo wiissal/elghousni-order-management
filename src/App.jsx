@@ -23,16 +23,11 @@ function App() {
     setOrders([...orders, newOrder]); // add new order to orders array
   };
 
-  // Change current filter
-  const handleFilterChange = (status) => {
-    setFilter(status);
-  };
-
   // Filter orders for OrderList
   const filteredOrders =
     filter === "all" ? orders : orders.filter((o) => o.status === filter);
 
-  // render 
+  // render
   return (
     <div className="App">
       {/* Navbar */}
@@ -40,7 +35,7 @@ function App() {
         <div style={{ width: "100%" }}>
           <div className="main-container">
             {/* Sidebar with buttons to switch sections */}
-
+            <Sidebar setActivePart={setActivePart} />
             {/* Main content area */}
             <div className="content">
               {activePart === "orderCard" && <OrderCard />}

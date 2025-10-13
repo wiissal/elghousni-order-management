@@ -10,7 +10,7 @@ function navbar(prop) {
           Coopérative Elghousni "Order Management System"
         </h1>
       </header>
-      <div style={{display:"flex"}}>
+      <div style={{display:"flex"}}> {/* This div contains the sidebar and the main content */}
         <Sidebar setActivePart={prop.setActivePart} />
         {prop.children}
       </div>
