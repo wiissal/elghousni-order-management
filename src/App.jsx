@@ -15,9 +15,6 @@ function App() {
 
   const [filter, setFilter] = useState("all"); // current filter ("all", "completed", etc.)
   const [activePart, setActivePart] = useState("orderCard"); // which part of the UI is visible
-
-  // FUNCTIONS
-
   // Add a new order
   const handleAddOrder = (newOrder) => {
     setOrders([...orders, newOrder]); // add new order to orders array
@@ -25,7 +22,7 @@ function App() {
 
   // Filter orders for OrderList
   const filteredOrders =
-    filter === "all" ? orders : orders.filter((o) => o.status === filter);
+    filter === "all" ? orders : orders.filter((o) => o.status === filter); // filter orders based on status
 
   // render
   return (
