@@ -1,7 +1,6 @@
 // App.jsx
 import React, { useState } from "react";
 import Navbar from "./components/navbar";
-import Sidebar from "./components/Sidebar";
 import OrderForm from "./components/OrderForm";
 import OrderList from "./components/OrderList";
 import FilterBar from "./components/FilterBar";
@@ -34,8 +33,6 @@ function App() {
       <Navbar setActivePart={setActivePart}>
         <div style={{ width: "100%" }}>
           <div className="main-container">
-            {/* Sidebar with buttons to switch sections */}
-            <Sidebar setActivePart={setActivePart} />
             {/* Main content area */}
             <div className="content">
               {activePart === "orderCard" && <OrderCard />}
