@@ -14,7 +14,7 @@ function FilterBar({ currentFilter, onFilterChange }) {
         className={currentFilter === "pending" ? "active" : ""}
         onClick={() => onFilterChange("pending")}
       >
-        Pending
+        Pending {/* Orders not yet prepared */}
       </button>
 
       <button
