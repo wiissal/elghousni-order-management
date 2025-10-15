@@ -8,9 +8,9 @@ function OrderCard() {
 
   // Function to increase/decrease quantity
   const handleQuantityChange = (id, change) => {
-    setQuantities((prev) => ({
+    setQuantities((prev) => ({ 
       ...prev,
-      [id]: Math.max((prev[id] || 0) + change, 0), // Prevent negative quantity
+      [id]: Math.max((prev[id] || 0), {/*if we dont have quantity we keep it 0*/} + change, 0), // Prevent negative quantity
     }));
   };
 

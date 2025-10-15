@@ -1,7 +1,7 @@
 // App.jsx
 import React, { useState } from "react";
 import Navbar from "./components/navbar";
-import Sidebar from "./components/Sidebar";
+//import Sidebar from "./components/Sidebar";
 import OrderForm from "./components/OrderForm";
 import OrderList from "./components/OrderList";
 import FilterBar from "./components/FilterBar";
@@ -16,7 +16,7 @@ function App() {
   const [filter, setFilter] = useState("all"); // current filter ("all", "completed", etc.)
   const [activePart, setActivePart] = useState("orderCard"); // which part of the UI is visible
   // Add a new order
-  const handleAddOrder = (newOrder) => {
+  const handleAddOrder = (newOrder) => { // function to add a new order
     setOrders([...orders, newOrder]); // add new order to orders array
   };
 
@@ -31,9 +31,8 @@ function App() {
       <Navbar setActivePart={setActivePart}>
         <div style={{ width: "100%" }}>
           <div className="main-container">
-            {/* Sidebar with buttons to switch sections */}
-            <Sidebar setActivePart={setActivePart} />
             {/* Main content area */}
+            {/*conditional rendering based on activePart*/}
             <div className="content">
               {activePart === "orderCard" && <OrderCard />}
               {activePart === "orderForm" && (
