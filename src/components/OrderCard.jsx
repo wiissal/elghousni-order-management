@@ -7,21 +7,21 @@ function OrderCard() {
   const [quantities, setQuantities] = useState({});
   const orders = useStore((state) => state.orders);
   const setOrder = useStore((state) => state.setOrder);
+  const updateOrder = useStore((state) => state.updateOrder);
 
   const handleQuantityChange = (product, change) => {
     setQuantities((prev) => {
       const newQty = Math.max((prev[product.id] || 0) + change, 0);
 
-      // Update Zustand store
       const existingOrder = orders.find((o) => o.product === product.name);
 
       if (existingOrder) {
-        // Update the existing order quantity
-        existingOrder.quantity = newQty;
+        // Use updateOrder instead of direct mutation
+        updateOrder(existingOrder.id, { quantity: newQty });
       } else if (newQty > 0) {
         // Add new product to orders only if quantity > 0
         setOrder({
-          id: product.id, // use product id to avoid duplicates
+          id: Date.now(), // use timestamp as unique id
           customerName: "Guest",
           product: product.name,
           quantity: newQty,
