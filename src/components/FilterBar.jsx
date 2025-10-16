@@ -3,9 +3,8 @@ import "../App.css";
 import useStore from "../store/useStore";
 
 function FilterBar() {
-  // Pull filter state and setter directly from Zustand
-  const filter = useStore((state) => state.filter);
-  const setFilter = useStore((state) => state.setFilter);
+  const filter = useStore((state) => state.filter); // Get current filter from Zustand
+  const setFilter = useStore((state) => state.setFilter); // Action to update filter
 
   return (
     <div className="filter-bar">

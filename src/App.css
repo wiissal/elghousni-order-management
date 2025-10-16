@@ -8,6 +8,20 @@
 }
 
 /* =======================
+   APP LAYOUT
+======================= */
+.app-container {
+  display: flex;
+  min-height: 100vh; /* full height of the screen */
+}
+
+.main-content {
+  flex: 1; /* take remaining space */
+  padding: 20px;
+  overflow-y: auto; /* scroll if content is too long */
+}
+
+/* =======================
    NAVBAR
 ======================= */
 .navbar {
@@ -36,6 +50,7 @@
   height: 100vh;
   padding: 60px 20px;
   box-shadow: 5px 0 8px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
 }
 
 .sidebar-title {
@@ -332,14 +347,12 @@
   margin-bottom: 20px;
 }
 
-/* Grid for summary boxes */
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
 }
 
-/* Individual summary boxes */
 .summary-box {
   background-color: #ffffff;
   border-radius: 12px;
@@ -366,7 +379,6 @@
   color: #708238;
 }
 
-/* Color variations */
 .summary-box.pending p {
   color: #bca479;
 }
@@ -404,6 +416,7 @@
   background-color: #708238;
   color: white;
 }
+
 /* =======================
    FOOTER
 ======================= */

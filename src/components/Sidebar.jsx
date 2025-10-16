@@ -3,7 +3,7 @@ import "../App.css";
 import useStore from "../store/useStore";
 
 function Sidebar() {
-  // Pull setActivePart directly from the store
+  // Pull the setActivePart function from Zustand
   const setActivePart = useStore((state) => state.setActivePart);
 
   return (

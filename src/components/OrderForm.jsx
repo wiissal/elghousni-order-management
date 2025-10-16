@@ -5,7 +5,7 @@ import "../App.css";
 import useStore from "../store/useStore";
 
 function OrderForm() {
-  // Pull the addOrder function from Zustand store
+  // Pull the addOrder function from Zustand
   const addOrder = useStore((state) => state.setOrder);
 
   // Local state for form inputs
@@ -22,7 +22,7 @@ function OrderForm() {
       return;
     }
 
-    // Create a new order object
+    // Create new order object
     const newOrder = {
       id: Date.now(),
       customerName,
