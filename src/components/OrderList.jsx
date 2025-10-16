@@ -3,20 +3,24 @@ import useStore from "../store/useStore";
 import StatusBadge from "./StatusBadge";
 
 function OrderList() {
-  // Pull orders and removeOrder from Zustand
   const orders = useStore((state) => state.orders);
+  const filter = useStore((state) => state.filter); // get current filter
   const removeOrder = useStore((state) => state.removeOrder);
 
-  if (!orders || orders.length === 0) {
-    return (
-      <p style={{ textAlign: "center", marginTop: "20px" }}>No orders yet.</p>
-    );
+  // Apply filter
+  const filteredOrders =
+    filter === "all"
+      ? orders
+      : orders.filter((o) => o.status === filter);
+
+  if (!filteredOrders.length) {
+    return <p style={{ textAlign: "center", marginTop: "20px" }}>No orders found.</p>;
   }
 
   return (
     <div className="order-list">
       <h2>Orders List</h2>
-      {orders.map((order) => (
+      {filteredOrders.map((order) => (
         <div key={order.id} className="order-item-card">
           <div className="order-content">
             <h3>{order.customerName}</h3>
@@ -25,9 +29,7 @@ function OrderList() {
             <p>Price: {order.price ? `${order.price} MAD` : "N/A"}</p>
             <StatusBadge status={order.status} />
           </div>
-          <button className="delete-btn" onClick={() => removeOrder(order.id)}>
-            Delete
-          </button>
+          <button className="delete-btn" onClick={() => removeOrder(order.id)}>Delete</button>
         </div>
       ))}
     </div>

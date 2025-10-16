@@ -1,4 +1,3 @@
-// App.jsx
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
@@ -14,19 +13,15 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        {/* Navbar always at the top */}
         <Navbar />
 
         <div className="layout">
-          {/* Sidebar always visible on the left */}
           <Sidebar />
 
-          {/* The main area that changes depending on the route */}
           <main className="main-content">
             <Routes>
               <Route path="/" element={<OrderCard />} />
               <Route path="/form" element={<OrderForm />} />
-              <Route path="/summary" element={<OrderSummary />} />
               <Route
                 path="/orders"
                 element={
@@ -36,6 +31,10 @@ function App() {
                   </>
                 }
               />
+              <Route path="/summary" element={<OrderSummary />} />
+
+              {/* Catch-all for unknown routes */}
+              <Route path="*" element={<h2>Page Not Found</h2>} />
             </Routes>
           </main>
         </div>

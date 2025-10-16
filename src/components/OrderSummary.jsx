@@ -1,10 +1,11 @@
 import "../App.css";
 import useStore from "../store/useStore";
+import { useNavigate } from "react-router-dom";
 
 function OrderSummary() {
   const orders = useStore((state) => state.orders);
-  const setFilter = useStore((state) => state.setFilter); // action to set current filter
-  const setActivePart = useStore((state) => state.setActivePart); // to show OrderList
+  const setFilter = useStore((state) => state.setFilter);
+  const navigate = useNavigate(); // react-router navigation
 
   const totalOrders = orders.length;
   const pendingOrders = orders.filter((o) => o.status === "pending").length;
@@ -12,8 +13,8 @@ function OrderSummary() {
   const deliveredOrders = orders.filter((o) => o.status === "delivered").length;
 
   const handleClick = (filter) => {
-    setFilter(filter);        // set filter
-    setActivePart("filterBar"); // switch main content to filter + order list
+    setFilter(filter);       // set filter in Zustand
+    navigate("/orders");     // go to /orders page to show FilterBar + OrderList
   };
 
   return (

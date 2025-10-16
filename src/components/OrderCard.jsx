@@ -1,27 +1,27 @@
 import { useState } from "react";
 import "../App.css";
 import { products } from "../data/products";
-import useStore from "../store/useStore"; // Zustand store
+import useStore from "../store/useStore";
 
 function OrderCard() {
-  const [quantities, setQuantities] = useState({});
   const orders = useStore((state) => state.orders);
   const setOrder = useStore((state) => state.setOrder);
-  const updateOrder = useStore((state) => state.updateOrder);
+  const updateOrderQuantity = useStore((state) => state.updateOrderQuantity);
+
+  const [quantities, setQuantities] = useState({});
 
   const handleQuantityChange = (product, change) => {
     setQuantities((prev) => {
       const newQty = Math.max((prev[product.id] || 0) + change, 0);
 
+      // Check if order exists
       const existingOrder = orders.find((o) => o.product === product.name);
 
       if (existingOrder) {
-        // Use updateOrder instead of direct mutation
-        updateOrder(existingOrder.id, { quantity: newQty });
+        updateOrderQuantity(product.name, newQty); // safely update Zustand
       } else if (newQty > 0) {
-        // Add new product to orders only if quantity > 0
         setOrder({
-          id: Date.now(), // use timestamp as unique id
+          id: Date.now(),
           customerName: "Guest",
           product: product.name,
           quantity: newQty,
@@ -35,28 +35,22 @@ function OrderCard() {
   };
 
   return (
-    <div className="order-card-wrapper">
-      <div className="order-card-container">
-        {products.map((product) => (
-          <div className="order-card" key={product.id}>
-            <img
-              src={product.image}
-              alt={product.name}
-              className="product-img"
-            />
-            <h3 className="product-name">{product.name}</h3>
-            <p className="product-category">{product.category}</p>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price} MAD</p>
+    <div className="order-card-container">
+      {products.map((product) => (
+        <div className="order-card" key={product.id}>
+          <img src={product.image} alt={product.name} className="product-img" />
+          <h3 className="product-name">{product.name}</h3>
+          <p className="product-category">{product.category}</p>
+          <p className="product-description">{product.description}</p>
+          <p className="product-price">{product.price} MAD</p>
 
-            <div className="quantity-controls">
-              <button onClick={() => handleQuantityChange(product, -1)}>-</button>
-              <span>{quantities[product.id] || 0}</span>
-              <button onClick={() => handleQuantityChange(product, 1)}>+</button>
-            </div>
+          <div className="quantity-controls">
+            <button onClick={() => handleQuantityChange(product, -1)}>-</button>
+            <span>{quantities[product.id] || 0}</span>
+            <button onClick={() => handleQuantityChange(product, 1)}>+</button>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }
