@@ -1,73 +1,29 @@
 // App.jsx
-import React, { useState } from "react";
-import Navbar from "./components/navbar";
-//import Sidebar from "./components/Sidebar";
+import React from "react";
+import Sidebar from "./components/Sidebar";
 import OrderForm from "./components/OrderForm";
-import OrderList from "./components/OrderList";
-import FilterBar from "./components/FilterBar";
+import orderList from "./components/OrderList";
 import OrderSummary from "./components/OrderSummary";
+import FilterBar from "./components/FilterBar";
 import OrderCard from "./components/OrderCard";
+import useStore from "./store/useStore";
 import "./App.css";
 
 function App() {
-  // STATE VARIABLES
-  const [orders, setOrders] = useState([]); // stores all orders
+  const activePart = useStore((state) => state.activePart); // pull activePart from Zustand
 
-  const [filter, setFilter] = useState("all"); // current filter ("all", "completed", etc.)
-  const [activePart, setActivePart] = useState("orderCard"); // which part of the UI is visible
-  // Add a new order
-  const handleAddOrder = (newOrder) => { // function to add a new order
-    setOrders([...orders, newOrder]); // add new order to orders array
-  };
-
-  // Filter orders for OrderList
-  const filteredOrders =
-    filter === "all" ? orders : orders.filter((o) => o.status === filter); // filter orders based on status
-
-  // render
   return (
-    <div className="App">
-      {/* Navbar */}
-      <Navbar setActivePart={setActivePart}>
-        <div style={{ width: "100%" }}>
-          <div className="main-container">
-            {/* Main content area */}
-            {/*conditional rendering based on activePart*/}
-            <div className="content">
-              {activePart === "orderCard" && <OrderCard />}
-              {activePart === "orderForm" && (
-                <OrderForm onAddOrder={handleAddOrder} />
-              )}
-              {activePart === "orderSummary" && (
-                <OrderSummary orders={orders} />
-              )}
-              {activePart === "orderList" && (
-                <>
-                  <FilterBar
-                    currentFilter={filter}
-                    onFilterChange={setFilter}
-                  />
-                  <OrderList orders={filteredOrders} />
-                </>
-              )}
-              {activePart === "filterBar" && (
-                <>
-                  <FilterBar
-                    currentFilter={filter}
-                    onFilterChange={setFilter}
-                  />
-                  <OrderList orders={filteredOrders} />
-                </>
-              )}
-            </div>
-          </div>
+    <div className="app-container">
+      {/* Sidebar automatically updates Zustand activePart */}
+      <Sidebar />
 
-          {/* Footer */}
-          <div className="footer">
-            <p>&copy; 2025 Elghousni Olive Cooperative. All rights reserved.</p>
-          </div>
-        </div>
-      </Navbar>
+      <div className="main-content">
+        {activePart === "orderCard" && <OrderCard />}
+        {activePart === "orderForm" && <OrderForm />}
+        {activePart === "orderSummary" && <OrderSummary />}
+        {activePart === "filterBar" && <FilterBar />}
+        {activePart === "orderList" && <orderList />}
+      </div>
     </div>
   );
 }

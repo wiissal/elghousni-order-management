@@ -1,30 +1,39 @@
 // OrderList.jsx
-import "../App.css";
+import React from "react";
+import useStore from "../store/useStore";
+import StatusBadge from "./StatusBadge";
 
-function OrderList({ orders }) {
+function OrderList() {
+  // Access orders and current filter from Zustand
+  const { orders, filter } = useStore((state) => ({
+    orders: state.orders,
+    filter: state.filter,
+  }));
+
+  // Apply filter
+  const filteredOrders =
+    filter === "all" ? orders : orders.filter((o) => o.status === filter);
+
+  if (!filteredOrders || filteredOrders.length === 0) {
+    return <p style={{ textAlign: "center", marginTop: "20px" }}>No orders yet.</p>;
+  }
+
   return (
     <div className="order-list">
-      <h2>Orders Overview</h2>
-
-      {orders.length === 0 ? (
-        <p className="no-orders">No orders yet</p>
-      ) : (
-        orders.map((order) => (
-          <div key={order.id} className="order-item">
-            <div className="order-info">
-              <h3>{order.customerName}</h3>
-              <p><strong>Product:</strong> {order.product}</p>
-              <p><strong>Quantity:</strong> {order.quantity}</p>
-              <p>
-                <strong>Status:</strong>{" "}
-                <span className={`status-badge ${order.status}`}>
-                  {order.status}
-                </span>
-              </p>
-            </div>
+      <h2>Orders List</h2>
+      {filteredOrders.map((order) => (
+        <div key={order.id} className="order-item">
+          <div className="order-info">
+            <h3>{order.customerName}</h3>
+            <p>Product: {order.product}</p>
+            <p>Quantity: {order.quantity}</p>
+            {order.price && <p>Price: ${order.price}</p>}
+            <p>
+              Status: <StatusBadge status={order.status} />
+            </p>
           </div>
-        ))
-      )}
+        </div>
+      ))}
     </div>
   );
 }

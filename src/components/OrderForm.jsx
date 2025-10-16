@@ -2,8 +2,13 @@
 import { useState } from "react";
 import ProductSelector from "./ProductSelector";
 import "../App.css";
+import useStore from "../store/useStore";
 
-function OrderForm({ onAddOrder }) {
+function OrderForm() {
+  // Pull the addOrder function from Zustand store
+  const addOrder = useStore((state) => state.setOrder);
+
+  // Local state for form inputs
   const [customerName, setCustomerName] = useState("");
   const [selectedProduct, setSelectedProduct] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -11,11 +16,13 @@ function OrderForm({ onAddOrder }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Validate input fields
     if (!customerName || !selectedProduct) {
       alert("Please fill all fields!");
       return;
     }
 
+    // Create a new order object
     const newOrder = {
       id: Date.now(),
       customerName,
@@ -24,8 +31,11 @@ function OrderForm({ onAddOrder }) {
       status: "pending",
     };
 
-    onAddOrder(newOrder); // Add new order to App.jsx state
-    setCustomerName(""); // Reset form
+    // Add new order to Zustand global state
+    addOrder(newOrder);
+
+    // Reset form fields
+    setCustomerName("");
     setSelectedProduct("");
     setQuantity(1);
   };

@@ -1,32 +1,38 @@
+// FilterBar.jsx
 import "../App.css";
+import useStore from "../store/useStore";
 
-function FilterBar({ currentFilter, onFilterChange }) {
+function FilterBar() {
+  // Pull filter state and setter directly from Zustand
+  const filter = useStore((state) => state.filter);
+  const setFilter = useStore((state) => state.setFilter);
+
   return (
     <div className="filter-bar">
       <button
-        className={currentFilter === "all" ? "active" : ""} // Highlight active filter
-        onClick={() => onFilterChange("all")} // Change filter to "all"
+        className={filter === "all" ? "active" : ""}
+        onClick={() => setFilter("all")}
       >
-        All {/* Show all orders */}
+        All
       </button>
 
       <button
-        className={currentFilter === "pending" ? "active" : ""} // Highlight active filter
-        onClick={() => onFilterChange("pending")} // Change filter to "pending"
+        className={filter === "pending" ? "active" : ""}
+        onClick={() => setFilter("pending")}
       >
         Pending
       </button>
 
       <button
-        className={currentFilter === "prepared" ? "active" : ""} 
-        onClick={() => onFilterChange("prepared")}
+        className={filter === "prepared" ? "active" : ""}
+        onClick={() => setFilter("prepared")}
       >
         Prepared
       </button>
 
       <button
-        className={currentFilter === "delivered" ? "active" : ""}
-        onClick={() => onFilterChange("delivered")}
+        className={filter === "delivered" ? "active" : ""}
+        onClick={() => setFilter("delivered")}
       >
         Delivered
       </button>

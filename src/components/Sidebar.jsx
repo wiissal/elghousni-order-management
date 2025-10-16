@@ -1,15 +1,19 @@
 // Sidebar.jsx
 import "../App.css";
+import useStore from "../store/useStore";
 
-function Sidebar({ setActivePart }) {
+function Sidebar() {
+  // Pull setActivePart directly from the store
+  const setActivePart = useStore((state) => state.setActivePart);
+
   return (
     <div className="sidebar">
       <h2 className="sidebar-title">Menu</h2>
       <ul className="sidebar-menu">
-        <li onClick={() => setActivePart("orderCard")}>Products</li>     {/* Changed from "Order Card" to "Products" */}
-        <li onClick={() => setActivePart("orderForm")}>Order Form</li>  {/* Changed from "Add Order" to "Order Form" */}
-        <li onClick={() => setActivePart("orderSummary")}>Summary</li>  {/* Changed from "Order Summary" to "Summary" */}
-        <li onClick={() => setActivePart("filterBar")}>Filter Orders</li>  {/* Changed from "Filter Orders" to "Filter Orders" */}
+        <li onClick={() => setActivePart("orderCard")}>Products</li>
+        <li onClick={() => setActivePart("orderForm")}>Order Form</li>
+        <li onClick={() => setActivePart("orderSummary")}>Summary</li>
+        <li onClick={() => setActivePart("filterBar")}>Filter Orders</li>
       </ul>
     </div>
   );

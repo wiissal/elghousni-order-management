@@ -1,7 +1,12 @@
 // OrderSummary.jsx
 import "../App.css";
+import useStore from "../store/useStore";
 
-function OrderSummary({ orders }) {
+function OrderSummary() {
+  // Get orders directly from Zustand
+  const orders = useStore((state) => state.orders);
+
+  // Calculate totals
   const totalOrders = orders.length;
   const pendingOrders = orders.filter((o) => o.status === "pending").length;
   const preparedOrders = orders.filter((o) => o.status === "prepared").length;
