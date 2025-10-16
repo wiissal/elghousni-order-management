@@ -1,6 +1,6 @@
 // App.jsx
 import React from "react";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar";
 import Sidebar from "./components/Sidebar";
 import OrderForm from "./components/OrderForm";
 import OrderCard from "./components/OrderCard";

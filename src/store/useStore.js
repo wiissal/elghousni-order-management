@@ -10,6 +10,11 @@ const useStore = create((set) => ({
     set((state) => ({ orders: [...state.orders, newOrder] })), // Action to add a new order
   setFilter: (filter) => set({ filter }), // Action to set the filter
   setActivePart: (part) => set({ activePart: part }), // Action to set the active part
+  removeOrder: (id) =>
+  set((state) => ({
+    orders: state.orders.filter((order) => order.id !== id),
+  })),
+
 }));
 
 export default useStore; // Export the store for use in components
