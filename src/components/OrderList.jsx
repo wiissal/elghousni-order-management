@@ -8,29 +8,26 @@ function OrderList() {
   const removeOrder = useStore((state) => state.removeOrder);
 
   if (!orders || orders.length === 0) {
-    return <p style={{ textAlign: "center", marginTop: "20px" }}>No orders yet.</p>;
+    return (
+      <p style={{ textAlign: "center", marginTop: "20px" }}>No orders yet.</p>
+    );
   }
 
   return (
     <div className="order-list">
       <h2>Orders List</h2>
       {orders.map((order) => (
-        <div key={order.id} className="order-item">
-          <div className="order-info">
-           <div className ="order-content">
+        <div key={order.id} className="order-item-card">
+          <div className="order-content">
             <h3>{order.customerName}</h3>
             <p>Product: {order.product}</p>
             <p>Quantity: {order.quantity}</p>
-            <p>Price: {order.price ? `$${order.price}` : "N/A"}</p>
+            <p>Price: {order.price ? `${order.price} MAD` : "N/A"}</p>
             <StatusBadge status={order.status} />
           </div>
-          <button
-            className="delete-btn"
-            onClick={() => removeOrder(order.id)}
-          >
+          <button className="delete-btn" onClick={() => removeOrder(order.id)}>
             Delete
           </button>
-          </div>
         </div>
       ))}
     </div>

@@ -268,6 +268,18 @@ body {
   background-color: #5e6d30;
   transform: translateY(-2px);
 }
+.order-item-card {
+  display: flex;
+  align-items: center; /* vertically center content + button */
+  justify-content: space-between; /* space between info and button */
+  background-color: #f4f1e9;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  gap: 15px;
+}
+
+
 
 /* =======================
    ORDER LIST + ORDER SUMMARY LAYOUT
