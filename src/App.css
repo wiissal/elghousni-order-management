@@ -1,10 +1,16 @@
 /* =======================
-   GENERAL RESET
+   GLOBAL RESET
 ======================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #fafafa;
+  color: #2e2e2e;
 }
 
 /* =======================
@@ -31,6 +37,8 @@
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
+  position: sticky;
+  top: 0;
   z-index: 1000;
 }
 
@@ -43,37 +51,53 @@
    SIDEBAR
 ======================= */
 .sidebar {
-  width: 200px;
+  width: 220px;
   background-color: #f4f1e9;
   color: #2e2e2e;
-  height: calc(100vh - 80px); /* subtract navbar height */
+  height: 100vh;
   padding: 20px;
-  box-shadow: 5px 0 8px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0;
-  position: sticky;
-  top: 0;
+  border-right: 1px solid #ddd;
+  box-shadow: 5px 0 8px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 80px;
+  left: 0;
+  overflow-y: auto;
 }
 
-.sidebar-title {
+.sidebar h2 {
   font-size: 1.4rem;
   font-weight: bold;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   color: #4d4d4d;
 }
 
-.sidebar-menu {
+.sidebar ul {
   list-style: none;
+  padding: 0;
 }
 
-.sidebar-menu li {
-  margin-bottom: 1rem;
-  cursor: pointer;
-  transition: 0.2s;
+.sidebar li {
+  margin-bottom: 12px;
 }
 
-.sidebar-menu li:hover {
-  color: #69894d;
-  font-weight: bold;
+.sidebar a {
+  text-decoration: none;
+  color: #2e2e2e;
+  font-weight: 500;
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.sidebar a:hover {
+  background-color: #dfe7d0;
+}
+
+.sidebar a.active {
+  background-color: #708238;
+  color: white;
+  font-weight: 600;
 }
 
 /* =======================
@@ -81,32 +105,33 @@
 ======================= */
 .main-content {
   flex: 1;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  padding: 30px;
+  margin-left: 220px; /* space for sidebar */
+  background-color: #fafafa;
   overflow-y: auto;
 }
 
 /* =======================
-   COMPONENTS LAYOUT
-======================= */
-.order-form,
-.order-list,
-.order-summary,
-.order-card-wrapper {
-  width: 100%;
-  max-width: 1000px;
-  margin: 20px auto;
-}
-
-/* =======================
-   PRODUCT CARDS
+   PRODUCT CARDS - 4 PER ROW
 ======================= */
 .order-card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, 1fr); /* 4 cards in one row */
   gap: 20px;
+  margin-bottom: 40px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .order-card-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .order-card-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 .order-card {
@@ -114,13 +139,13 @@
   border-radius: 16px;
   padding: 15px;
   text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .order-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .product-img {
@@ -154,6 +179,7 @@
   margin-bottom: 10px;
 }
 
+/* Quantity buttons */
 .quantity-controls {
   display: flex;
   justify-content: center;
@@ -168,6 +194,7 @@
   border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s;
 }
 
 .quantity-controls button:hover {
@@ -179,20 +206,19 @@
 }
 
 /* =======================
-   ORDER FORM - CLEAN & MODERN
+   ORDER FORM
 ======================= */
 .order-form {
-  background-color: #f4f1e9; /* Light beige for soft contrast */
+  background-color: #f4f1e9;
   border-radius: 20px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   padding: 30px 25px;
   width: 100%;
   max-width: 600px;
-  margin: 40px auto; /* centered on page */
+  margin: 40px auto;
   display: flex;
   flex-direction: column;
   gap: 18px;
-  transition: all 0.3s ease;
 }
 
 .order-form h2 {
@@ -216,13 +242,13 @@
   border: 2px solid #ccc;
   border-radius: 12px;
   font-size: 15px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .order-form input:focus,
 .order-form select:focus {
   outline: none;
-  border-color: #708238; /* olive green */
+  border-color: #708238;
   box-shadow: 0 0 8px rgba(112, 130, 56, 0.4);
 }
 
@@ -235,8 +261,7 @@
   cursor: pointer;
   font-weight: 600;
   font-size: 16px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: 10px;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .order-form button:hover {
@@ -244,27 +269,90 @@
   transform: translateY(-2px);
 }
 
-
 /* =======================
-   ORDER LIST
+   ORDER LIST + ORDER SUMMARY LAYOUT
 ======================= */
+.orders-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+/* Order List */
 .order-list {
-  background-color: #fff;
+  flex: 1 1 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Each order card */
+.order-item-card {
+  display: flex;
+  align-items: flex-start;
+  background-color: #f4f1e9;
   border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  gap: 15px;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.order-list h2 {
-  text-align: center;
+.order-item-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+/* Delete button on the left */
+.order-item-card .delete-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+  align-self: center;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.order-item-card .delete-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
+
+/* Order info content */
+.order-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.order-content h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2e2e2e;
+}
+
+.order-content p {
+  font-size: 14px;
+  color: #333;
+  margin: 0;
+}
+
+.order-content p strong {
   color: #708238;
-  margin-bottom: 15px;
 }
 
-/* =======================
-   STATUS BADGES
-======================= */
+/* Status badge */
 .status-badge {
+  margin-top: 8px;
   padding: 4px 10px;
   border-radius: 8px;
   font-size: 12px;
@@ -276,77 +364,41 @@
 .status-badge.pending { background-color: #bca479; }
 .status-badge.prepared { background-color: #6380b0; }
 .status-badge.delivered { background-color: #10b981; }
-/* =======================
-   DELETE BUTTON
-======================= */
-.delete-btn {
-  background-color: #e74c3c; /* red for delete */
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  margin-left: 10px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.delete-btn:hover {
-  background-color: #c0392b; /* darker red on hover */
-  transform: translateY(-2px);
-}
-.order-content {
-  display: flex;
-  flex-direction: column; /* stack vertically */
-  align-items: center;    /* center horizontally */
-  gap: 10px;              /* space between order info and delete button */
-}
-
-.delete-btn {
-  background-color: #e74c3c; /* red delete button */
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.delete-btn:hover {
-  background-color: #c0392b;
-  transform: translateY(-2px);
-}
-
 
 /* =======================
-   ORDER SUMMARY
+   ORDER SUMMARY FIXED
 ======================= */
 .order-summary {
+  flex: 0 0 300px;
   background-color: #f4f1e9;
   border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.summary-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  padding: 25px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
   gap: 20px;
+  height: fit-content;
 }
 
 .summary-box {
   background-color: #fff;
   border-radius: 12px;
-  padding: 20px;
+  padding: 15px 20px;
   text-align: center;
   box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
-.summary-box h3 { margin-bottom: 10px; }
-.summary-box p { font-size: 24px; font-weight: bold; color: #708238; }
+.summary-box h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #2e2e2e;
+}
+
+.summary-box p {
+  font-size: 22px;
+  font-weight: bold;
+  color: #708238;
+}
 
 /* =======================
    FILTER BAR
@@ -355,6 +407,7 @@
   display: flex;
   justify-content: center;
   gap: 20px;
+  margin-bottom: 15px;
 }
 
 .filter-bar button {
@@ -365,6 +418,7 @@
   border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .filter-bar button:hover,
@@ -374,4 +428,16 @@
 }
 
 /* =======================
-   RESPONSIVE*/
+   RESPONSIVE FIX
+======================= */
+@media (max-width: 1024px) {
+  .orders-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .order-summary {
+    width: 100%;
+    max-width: 600px;
+  }
+}

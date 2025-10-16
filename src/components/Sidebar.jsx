@@ -1,18 +1,16 @@
 // Sidebar.jsx
+import { NavLink } from "react-router-dom";
 import "../App.css";
-import useStore from "../store/useStore";
 
 function Sidebar() {
-  const setActivePart = useStore((state) => state.setActivePart);
-
   return (
     <div className="sidebar">
-      <h2 className="sidebar-title">Menu</h2>
-      <ul className="sidebar-menu">
-        <li onClick={() => setActivePart("orderCard")}>Products</li>
-        <li onClick={() => setActivePart("orderForm")}>Order Form</li>
-        <li onClick={() => setActivePart("orderSummary")}>Summary</li>
-        <li onClick={() => setActivePart("filterBar")}>Filter Orders</li>
+      <h2>Dashboard</h2>
+      <ul>
+        <li><NavLink to="/">Products</NavLink></li> {/* Link to OrderCard */}
+        <li><NavLink to="/form">New Order</NavLink></li> {/* Link to OrderForm */}
+        <li><NavLink to="/orders">Orders</NavLink></li> {/* Link to OrderList */}
+        <li><NavLink to="/summary">Summary</NavLink></li> {/* Link to OrderSummary */}
       </ul>
     </div>
   );
