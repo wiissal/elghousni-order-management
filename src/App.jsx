@@ -1,5 +1,6 @@
 // App.jsx
 import React from "react";
+import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import OrderForm from "./components/OrderForm";
 import OrderCard from "./components/OrderCard";
@@ -10,28 +11,24 @@ import useStore from "./store/useStore";
 import "./App.css";
 
 function App() {
-  // Pull the active part and filter from Zustand
   const activePart = useStore((state) => state.activePart);
 
   return (
     <div className="app-container">
-      {/*flex container for sidebar and main content */}
+      <Navbar /> {/* Top navbar */}
       <div className="layout">
-      {/* Sidebar always visible */}
-      <Sidebar />
-
-      <div className="main-content">
-        {/* Conditional rendering based on activePart */}
-        {activePart === "orderCard" && <OrderCard />}
-        {activePart === "orderForm" && <OrderForm />}
-        {activePart === "orderSummary" && <OrderSummary />}
-        {activePart === "filterBar" && (
-          <>
-            <FilterBar />
-            <OrderList />
-          </>
-        )}
-        </div>  
+        <Sidebar /> {/* Left sidebar */}
+        <div className="main-content">
+          {activePart === "orderCard" && <OrderCard />}
+          {activePart === "orderForm" && <OrderForm />}
+          {activePart === "orderSummary" && <OrderSummary />}
+          {activePart === "filterBar" && (
+            <>
+              <FilterBar />
+              <OrderList />
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
