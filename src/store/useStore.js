@@ -1,35 +1,40 @@
+// src/store/useStore.js
 import { create } from "zustand";
 
 const useStore = create((set) => ({
-  orders: [],
-  products: [],   // New: products array
-  filter: "all",
+  // =======================
+  // STATE
+  // =======================
+  orders: [],             // Array to store all orders
+  filter: "all",          // Current filter state
+  activePart: "orderCard", // Current active UI part
 
-  // Orders actions
+  products: [],           // Optional: store products if needed
+
+  // =======================
+  // ACTIONS
+  // =======================
+  // Add a new order
   setOrder: (newOrder) =>
     set((state) => ({ orders: [...state.orders, newOrder] })),
-  removeOrder: (id) =>
-    set((state) => ({ orders: state.orders.filter(o => o.id !== id) })),
-  updateOrderQuantity: (productName, quantity) =>
-    set((state) => ({
-      orders: state.orders.map(o =>
-        o.product === productName ? { ...o, quantity } : o
-      ),
-    })),
 
-  // Products actions
+  // Remove an order by ID
+  removeOrder: (id) =>
+    set((state) => ({ orders: state.orders.filter((order) => order.id !== id) })),
+
+  // Update the filter (all, pending, prepared, delivered)
+  setFilter: (filter) => set({ filter }),
+
+  // Switch the active part of the UI
+  setActivePart: (part) => set({ activePart: part }),
+
+  // Optional: add a product
   addProduct: (product) =>
     set((state) => ({ products: [...state.products, product] })),
-  updateProduct: (id, updatedProduct) =>
-    set((state) => ({
-      products: state.products.map(p => p.id === id ? { ...p, ...updatedProduct } : p)
-    })),
-  removeProduct: (id) =>
-    set((state) => ({
-      products: state.products.filter(p => p.id !== id)
-    })),
 
-  setFilter: (filter) => set({ filter }),
+  // Optional: remove a product by ID
+  removeProduct: (id) =>
+    set((state) => ({ products: state.products.filter((p) => p.id !== id) })),
 }));
 
 export default useStore;

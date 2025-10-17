@@ -1,6 +1,7 @@
 import React from "react";
 import useStore from "../store/useStore";
 import StatusBadge from "./StatusBadge";
+import "../App.css";
 
 function OrderList() {
   const orders = useStore((state) => state.orders);

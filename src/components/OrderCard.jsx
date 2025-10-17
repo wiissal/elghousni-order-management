@@ -4,21 +4,19 @@ import { products } from "../data/products";
 import useStore from "../store/useStore";
 
 function OrderCard() {
+  const [quantities, setQuantities] = useState({});
   const orders = useStore((state) => state.orders);
   const setOrder = useStore((state) => state.setOrder);
   const updateOrderQuantity = useStore((state) => state.updateOrderQuantity);
-
-  const [quantities, setQuantities] = useState({});
 
   const handleQuantityChange = (product, change) => {
     setQuantities((prev) => {
       const newQty = Math.max((prev[product.id] || 0) + change, 0);
 
-      // Check if order exists
       const existingOrder = orders.find((o) => o.product === product.name);
 
       if (existingOrder) {
-        updateOrderQuantity(product.name, newQty); // safely update Zustand
+        updateOrderQuantity(product.name, newQty); // ✅ immutably update store
       } else if (newQty > 0) {
         setOrder({
           id: Date.now(),

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useStore from "../store/useStore";
-import "./App.css";
+import "../App.css";
 
 function Products() {
   const products = useStore(state => state.products);
