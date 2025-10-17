@@ -16,7 +16,7 @@ function OrderCard() {
       const existingOrder = orders.find((o) => o.product === product.name);
 
       if (existingOrder) {
-        updateOrderQuantity(product.name, newQty); // ✅ immutably update store
+        updateOrderQuantity(product.name, newQty); //  immutably update store
       } else if (newQty > 0) {
         setOrder({
           id: Date.now(),
