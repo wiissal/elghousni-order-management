@@ -12,7 +12,9 @@ import FilterBar from "./components/FilterBar";
 import OrderList from "./components/OrderList";
 import Products from "./components/Products";
 import OrderDetails from "./components/orderDetails"; // fixed: uppercase
+import ProductDetails from "./components/ProductDetails";
 
+// Styles
 import "./App.css";
 
 function App() {
@@ -57,6 +59,8 @@ function App() {
 
               {/* Fallback for unknown routes */}
               <Route path="*" element={<h2>Page Not Found</h2>} />
+              {/* Product Details Page */}
+              <Route path="/products/:id" element={<ProductDetails />} />
             </Routes>
           </main>
         </div>
