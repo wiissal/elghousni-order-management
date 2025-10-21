@@ -1,6 +1,4 @@
-/* =======================
-   GLOBAL RESET
-======================= */
+/* GLOBAL RESET */
 * {
   margin: 0;
   padding: 0;
@@ -13,9 +11,7 @@ body {
   color: #2e2e2e;
 }
 
-/* =======================
-   APP LAYOUT
-======================= */
+/*  APP LAYOUT */
 .app-container {
   display: flex;
   flex-direction: column;
@@ -27,9 +23,7 @@ body {
   flex: 1;
 }
 
-/* =======================
-   NAVBAR
-======================= */
+/*NAVBAR */
 .navbar {
   background-color: #708238; /* Olive green */
   padding: 20px;
@@ -47,9 +41,7 @@ body {
   font-weight: bold;
 }
 
-/* =======================
-   SIDEBAR
-======================= */
+/* SIDEBAR */
 .sidebar {
   width: 220px;
   background-color: #f4f1e9;
@@ -100,9 +92,7 @@ body {
   font-weight: 600;
 }
 
-/* =======================
-   MAIN CONTENT
-======================= */
+/* MAIN CONTENT */
 .main-content {
   flex: 1;
   padding: 30px;
@@ -111,9 +101,7 @@ body {
   overflow-y: auto;
 }
 
-/* =======================
-   PRODUCT CARDS - 4 PER ROW
-======================= */
+/*PRODUCT CARDS  */
 .order-card-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 cards in one row */
@@ -205,9 +193,7 @@ body {
   font-weight: 600;
 }
 
-/* =======================
-   ORDER FORM
-======================= */
+/*ORDER FORM*/
 .order-form {
   background-color: #f4f1e9;
   border-radius: 20px;
@@ -281,9 +267,8 @@ body {
 
 
 
-/* =======================
-   ORDER LIST + ORDER SUMMARY LAYOUT
-======================= */
+/*ORDER LIST + ORDER SUMMARY LAYOUT*/
+
 .orders-container {
   display: flex;
   flex-wrap: wrap;

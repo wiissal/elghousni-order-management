@@ -4,12 +4,12 @@ import StatusBadge from "./StatusBadge";
 import "../App.css";
 
 function OrderList() {
-  const orders = useStore((state) => state.orders);
+  const orders = useStore((state) => state.orders); // get current orders
   const filter = useStore((state) => state.filter); // get current filter
   const removeOrder = useStore((state) => state.removeOrder);
 
   // Apply filter
-  const filteredOrders =
+  const filteredOrders = 
     filter === "all"
       ? orders
       : orders.filter((o) => o.status === filter);

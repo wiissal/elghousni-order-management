@@ -4,28 +4,28 @@ import { useNavigate } from "react-router-dom";
 import useStore from "../store/useStore";
 import "../App.css";
 
-function Products() {
+function Products() { // Products Component
   const navigate = useNavigate();
   const products = useStore(state => state.products);
   const addProduct = useStore(state => state.addProduct);
   const updateProduct = useStore(state => state.updateProduct);
   const removeProduct = useStore(state => state.removeProduct);
 
-  const [form, setForm] = useState({ name: "", category: "", price: 0, description: "" });
-  const [editingId, setEditingId] = useState(null);
+  const [form, setForm] = useState({ name: "", category: "", price: 0, description: "" }); // Form state for adding/editing products
+  const [editingId, setEditingId] = useState(null); // State to track if editing an existing product
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!form.name) return alert("Product name required!");
+  const handleSubmit = (e) => { // Form submission handler
+    e.preventDefault(); // Prevent default form submission behavior
+    if (!form.name) return alert("Product name required!"); // Basic validation
 
-    if (editingId) {
+    if (editingId) { // If editing, update the product
       updateProduct(editingId, form);
       setEditingId(null);
     } else {
       addProduct({ ...form, id: Date.now() });
     }
 
-    setForm({ name: "", category: "", price: 0, description: "" });
+    setForm({ name: "", category: "", price: 0, description: "" }); // Reset form
   };
 
   const handleEdit = (product) => {
@@ -79,7 +79,7 @@ function Products() {
             <p>{p.description}</p>
             <p>{p.price} MAD</p>
             <div className="product-actions">
-              <button
+              <button 
                 onClick={(e) => {
                   e.stopPropagation();
                   handleEdit(p);

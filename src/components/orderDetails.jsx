@@ -1,6 +1,6 @@
 // OrderDetails.jsx
 import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // Importing necessary hooks for routing
 import useStore from "../store/useStore";
 import StatusBadge from "./StatusBadge"; // adjust path if needed
 
@@ -9,9 +9,9 @@ function OrderDetails() {
   const navigate = useNavigate();
 
   // Zustand store
-  const orders = useStore((state) => state.orders);
-  const updateOrder = useStore((state) => state.updateOrder);
-  const deleteOrder = useStore((state) => state.deleteOrder);
+  const orders = useStore((state) => state.orders); // Accessing orders from global state store
+  const updateOrder = useStore((state) => state.updateOrder); // Accessing updateOrder action
+  const deleteOrder = useStore((state) => state.deleteOrder); 
 
   // Find order by ID
   const order = orders.find((o) => o.id === Number(id));
@@ -19,7 +19,7 @@ function OrderDetails() {
   // Local state for status update
   const [status, setStatus] = useState(order?.status || "");
 
-  if (!order) {
+  if (!order) { 
     return (
       <div className="order-details-notfound">
         <h2>Order Not Found</h2>
@@ -28,7 +28,7 @@ function OrderDetails() {
     );
   }
 
-  // Handlers
+  // Handlers 
   const handleStatusChange = (e) => setStatus(e.target.value);
 
   const handleUpdate = () => {
@@ -44,17 +44,18 @@ function OrderDetails() {
   return (
     <div className="order-details">
       <h2>Order Details</h2>
-      <p><strong>Customer Name:</strong> {order.customerName}</p>
-      <p><strong>Product:</strong> {order.product}</p>
+      <p><strong>Customer Name:</strong> {order.customerName}</p> {/* Displaying customer name*/}
+      <p><strong>Product:</strong> {order.product}</p> {/*Displaying product*/}
       <p><strong>Quantity:</strong> {order.quantity}</p>
       <p><strong>Price:</strong> {order.price ? `$${order.price}` : "N/A"}</p>
       <p><strong>Status:</strong> <StatusBadge status={status} /></p>
 
       {/* Update Status */}
-      <div style={{ marginTop: "10px" }}>
+      <div style={{ marginTop: "10px" }}> {/* Container for status update */}
         <label>Change Status: </label>
-        <select value={status} onChange={handleStatusChange}>
-          <option value="pending">Pending</option>
+        <select value={status} onChange={handleStatusChange}> {/* Dropdown to select new status */}
+          <option value="all">All</option>
+          <option value="pending">Pending</option> 
           <option value="completed">Completed</option>
           <option value="canceled">Canceled</option>
         </select>

@@ -9,14 +9,14 @@ function FilterBar() {
   return (
     <div className="filter-bar">
       <button
-        className={filter === "all" ? "active" : ""}
+        className={filter === "all" ? "active" : ""} // Shown if current filter is 'all'
         onClick={() => setFilter("all")}
       >
         All
       </button>
 
       <button
-        className={filter === "pending" ? "active" : ""}
+        className={filter === "pending" ? "active" : ""} // Shown if current filter is 'pending'
         onClick={() => setFilter("pending")}
       >
         Pending

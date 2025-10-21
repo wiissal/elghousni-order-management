@@ -7,8 +7,8 @@ function OrderSummary() {
   const setFilter = useStore((state) => state.setFilter);
   const navigate = useNavigate(); // react-router navigation
 
-  const totalOrders = orders.length;
-  const pendingOrders = orders.filter((o) => o.status === "pending").length;
+  const totalOrders = orders.length; 
+  const pendingOrders = orders.filter((o) => o.status === "pending").length; 
   const preparedOrders = orders.filter((o) => o.status === "prepared").length;
   const deliveredOrders = orders.filter((o) => o.status === "delivered").length;
 
@@ -17,15 +17,15 @@ function OrderSummary() {
     navigate("/orders");     // go to /orders page to show FilterBar + OrderList
   };
 
-  return (
+  return ( 
     <div className="order-summary">
       <h2>Order Summary</h2>
       <div className="summary-grid">
-        <div className="summary-box total" onClick={() => handleClick("all")}>
+        <div className="summary-box total" onClick={() => handleClick("all")}> {/* Shown if current filter is 'all' */}
           <h3>Total</h3>
           <p>{totalOrders}</p>
         </div>
-        <div className="summary-box pending" onClick={() => handleClick("pending")}>
+        <div className="summary-box pending" onClick={() => handleClick("pending")}> {/* Shown if current filter is 'pending' */}
           <h3>Pending</h3>
           <p>{pendingOrders}</p>
         </div>

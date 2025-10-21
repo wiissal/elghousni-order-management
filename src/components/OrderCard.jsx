@@ -4,9 +4,9 @@ import { products } from "../data/products";
 import useStore from "../store/useStore";
 
 function OrderCard() {
-  const [quantities, setQuantities] = useState({});
-  const orders = useStore((state) => state.orders);
-  const setOrder = useStore((state) => state.setOrder);
+  const [quantities, setQuantities] = useState({});  
+  const orders = useStore((state) => state.orders); 
+  const setOrder = useStore((state) => state.setOrder); 
   const updateOrderQuantity = useStore((state) => state.updateOrderQuantity);
 
   const handleQuantityChange = (product, change) => {

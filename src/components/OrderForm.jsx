@@ -13,11 +13,11 @@ function OrderForm() {
   const [selectedProduct, setSelectedProduct] = useState("");
   const [quantity, setQuantity] = useState(1);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (e) => { //form submission handler
+    e.preventDefault();  
 
     // Validate input fields
-    if (!customerName || !selectedProduct) {
+    if (!customerName || !selectedProduct) { 
       alert("Please fill all fields!");
       return;
     }

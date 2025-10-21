@@ -16,7 +16,7 @@ function Navbar() {
     <header className="navbar">
       <h1 className="navbar-title">
         Coopérative Elghousni "Order Management System"
-        {id && <span style={{ marginLeft: "10px" }}>| ID: {id}</span>}
+        {id && <span style={{ marginLeft: "10px" }}>| ID: {id}</span>} {/* Display ID if present */}
       </h1>
     </header>
   );
