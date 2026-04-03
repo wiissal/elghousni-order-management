@@ -1,13 +1,14 @@
 import { useState } from "react"
 import { products } from "../data/products"
 import useStore from "../store/useStore"
-
+import { useNavigate } from "react-router-dom"
 function OrderForm() {
   const setOrder = useStore((state) => state.setOrder)
 
   const [customerName, setCustomerName] = useState("")
   const [phone, setPhone] = useState("")
   const [quantities, setQuantities] = useState({})
+  const navigate = useNavigate()
 
   const handleQty = (product, change) => {
     setQuantities((prev) => ({
@@ -43,7 +44,7 @@ function OrderForm() {
     setCustomerName("")
     setPhone("")
     setQuantities({})
-    alert("Order placed successfully!")
+    navigate("/orders")
   }
 
   return (
