@@ -53,7 +53,7 @@ function App() {   // Main App Component
               <Route path="/summary" element={<OrderSummary />} />
 
               {/* Products Management */}
-              <Route path="/products" element={<Products />} />
+              <Route path="/manage" element={<Products />} />
 
               {/* Fallback for unknown routes */}
               <Route path="*" element={<h2>Page Not Found</h2>} />

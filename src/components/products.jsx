@@ -1,29 +1,34 @@
 import React, { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Save, Upload, Plus } from "lucide-react"
 import useStore from "../store/useStore"
+import { products as catalogProducts } from "../data/products"
+
+const CATEGORIES = ["Olive Oil", "Olives", "Honey", "Processed Products", "Derived Products"]
 
 function Products() {
-  const navigate = useNavigate()
   const products = useStore((state) => state.products)
   const addProduct = useStore((state) => state.addProduct)
   const removeProduct = useStore((state) => state.removeProduct)
 
-  const [form, setForm] = useState({ name: "", category: "", price: 0, description: "" })
+  const [form, setForm] = useState({ name: "", category: "Olive Oil", price: 0, description: "" })
   const [editingId, setEditingId] = useState(null)
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (!form.name) return alert("Product name required!")
+  // combine store products + catalog products for display
+  const allProducts = [
+    ...catalogProducts,
+    ...products.filter((p) => !catalogProducts.find((c) => c.id === p.id)),
+  ]
 
+  const handleSubmit = () => {
+    if (!form.name) return alert("Product name required!")
     if (editingId) {
-      // updateProduct doesn't exist in your store yet — we remove + re-add
       removeProduct(editingId)
       addProduct({ ...form, id: editingId })
       setEditingId(null)
     } else {
       addProduct({ ...form, id: Date.now() })
     }
-    setForm({ name: "", category: "", price: 0, description: "" })
+    setForm({ name: "", category: "Olive Oil", price: 0, description: "" })
   }
 
   const handleEdit = (product) => {
@@ -35,114 +40,127 @@ function Products() {
     <div style={styles.page}>
       <div style={styles.header}>
         <h2 style={styles.title}>Manage Products</h2>
-        <p style={styles.subtitle}>{products.length} products in catalog</p>
+        <p style={styles.subtitle}>Add and manage your product catalog</p>
       </div>
 
-      {/* Form */}
+      {/* Form Card */}
       <div style={styles.formCard}>
-        <h3 style={styles.formTitle}>{editingId ? "Edit Product" : "Add New Product"}</h3>
-        <form onSubmit={handleSubmit} style={styles.form}>
-          <div style={styles.formGrid}>
-            <div style={styles.field}>
-              <label style={styles.label}>NAME</label>
-              <input
-                style={styles.input}
-                type="text"
-                placeholder="Product name"
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-              />
-            </div>
-            <div style={styles.field}>
-              <label style={styles.label}>CATEGORY</label>
-              <input
-                style={styles.input}
-                type="text"
-                placeholder="e.g. Olive Oil"
-                value={form.category}
-                onChange={(e) => setForm({ ...form, category: e.target.value })}
-              />
-            </div>
-            <div style={styles.field}>
-              <label style={styles.label}>PRICE (MAD)</label>
-              <input
-                style={styles.input}
-                type="number"
-                placeholder="0"
-                value={form.price}
-                onChange={(e) => setForm({ ...form, price: Number(e.target.value) })}
-              />
-            </div>
-            <div style={styles.field}>
-              <label style={styles.label}>DESCRIPTION</label>
-              <input
-                style={styles.input}
-                type="text"
-                placeholder="Short description"
-                value={form.description}
-                onChange={(e) => setForm({ ...form, description: e.target.value })}
-              />
-            </div>
+        <h3 style={styles.formTitle}>
+          <Plus size={16} style={{ marginRight: 6, verticalAlign: "middle" }} />
+          {editingId ? "Edit Product" : "Add New Product"}
+        </h3>
+
+        {/* Image Upload Area */}
+        <div style={styles.field}>
+          <label style={styles.label}>Product Image</label>
+          <div style={styles.uploadArea}>
+            <Upload size={24} color="#9e8f7a" />
+            <p style={styles.uploadText}>Click to upload or drag and drop</p>
+            <p style={styles.uploadHint}>PNG, JPG up to 10MB</p>
           </div>
-          <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
-            <button type="submit" style={styles.btnPrimary}>
-              {editingId ? "Update Product" : "Add Product"}
+        </div>
+
+        {/* Product Name */}
+        <div style={styles.field}>
+          <label style={styles.label}>Product Name</label>
+          <input
+            style={styles.input}
+            type="text"
+            placeholder="Enter product name"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+          />
+        </div>
+
+        {/* Price */}
+        <div style={styles.field}>
+          <label style={styles.label}>Price (MAD)</label>
+          <input
+            style={styles.input}
+            type="number"
+            placeholder="0"
+            value={form.price}
+            onChange={(e) => setForm({ ...form, price: Number(e.target.value) })}
+          />
+        </div>
+
+        {/* Category Dropdown */}
+        <div style={styles.field}>
+          <label style={styles.label}>Category</label>
+          <select
+            style={styles.select}
+            value={form.category}
+            onChange={(e) => setForm({ ...form, category: e.target.value })}
+          >
+            {CATEGORIES.map((cat) => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Buttons */}
+        <div style={{ display: "flex", gap: 10, marginTop: 8 }}>
+          <button style={styles.btnPrimary} onClick={handleSubmit}>
+            <Save size={15} style={{ marginRight: 6, verticalAlign: "middle" }} />
+            {editingId ? "Update Product" : "Save Product"}
+          </button>
+          {editingId && (
+            <button
+              style={styles.btnSecondary}
+              onClick={() => {
+                setEditingId(null)
+                setForm({ name: "", category: "Olive Oil", price: 0, description: "" })
+              }}
+            >
+              Cancel
             </button>
-            {editingId && (
-              <button
-                type="button"
-                style={styles.btnSecondary}
-                onClick={() => {
-                  setEditingId(null)
-                  setForm({ name: "", category: "", price: 0, description: "" })
-                }}
-              >
-                Cancel
-              </button>
-            )}
-          </div>
-        </form>
+          )}
+        </div>
       </div>
 
-      {/* Products Grid — 3 columns */}
-      <div style={styles.grid}>
-        {products.map((p) => (
-          <div
-            key={p.id}
-            style={styles.card}
-            onClick={() => navigate(`/products/${p.id}`)}
-          >
-            {/* Image area */}
-            <div style={styles.imageArea}>
-              {p.image
-                ? <img src={p.image} alt={p.name} style={styles.image} />
-                : <span style={{ fontSize: 36 }}>🫒</span>
-              }
-            </div>
-
-            <div style={styles.cardBody}>
-              <span style={styles.category}>{p.category}</span>
-              <h3 style={styles.productName}>{p.name}</h3>
-              <p style={styles.description}>{p.description}</p>
-              <p style={styles.price}>{p.price} <span style={styles.mad}>MAD</span></p>
-
-              <div style={styles.actions}>
-                <button
-                  style={styles.btnEdit}
-                  onClick={(e) => { e.stopPropagation(); handleEdit(p) }}
-                >
-                  Edit
-                </button>
-                <button
-                  style={styles.btnDelete}
-                  onClick={(e) => { e.stopPropagation(); removeProduct(p.id) }}
-                >
-                  Delete
-                </button>
+      {/* Current Products List */}
+      <div style={styles.listCard}>
+        <h3 style={styles.formTitle}>Current Products</h3>
+        <div style={styles.productList}>
+          {allProducts.map((p) => (
+            <div key={p.id} style={styles.productRow}>
+              {/* Thumbnail */}
+              <div style={styles.thumb}>
+                {p.image
+                  ? <img src={p.image} alt={p.name} style={styles.thumbImg} />
+                  : <span style={{ fontSize: 20 }}>🫒</span>
+                }
               </div>
+
+              {/* Info */}
+              <div style={styles.productInfo}>
+                <span style={styles.categoryBadge}>{p.category}</span>
+                <span style={styles.productName}>{p.name}</span>
+              </div>
+
+              {/* Price */}
+              <span style={styles.productPrice}>{p.price} MAD</span>
+
+              {/* Actions — only for store products not in catalog */}
+              {products.find((sp) => sp.id === p.id) && (
+                <div style={styles.rowActions}>
+                  <button
+                    style={styles.btnRowEdit}
+                    onClick={() => handleEdit(p)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    style={styles.btnRowDelete}
+                    onClick={() => removeProduct(p.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   )
@@ -153,10 +171,9 @@ const styles = {
     padding: "2rem",
     background: "#faf7f2",
     minHeight: "100vh",
+    maxWidth: 600,
   },
-  header: {
-    marginBottom: "1.5rem",
-  },
+  header: { marginBottom: "1.5rem" },
   title: {
     fontSize: 22,
     fontFamily: "Georgia, serif",
@@ -175,34 +192,57 @@ const styles = {
     border: "1px solid #e8e0d0",
     borderRadius: 16,
     padding: "1.5rem",
-    marginBottom: "2rem",
+    marginBottom: "1rem",
+  },
+  listCard: {
+    background: "#fff",
+    border: "1px solid #e8e0d0",
+    borderRadius: 16,
+    padding: "1.5rem",
   },
   formTitle: {
     fontFamily: "Georgia, serif",
     fontSize: 16,
     color: "#2e4520",
     fontWeight: "normal",
-    margin: "0 0 1rem",
-  },
-  form: {
+    margin: "0 0 1.25rem",
     display: "flex",
-    flexDirection: "column",
-  },
-  formGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)",
-    gap: 12,
+    alignItems: "center",
   },
   field: {
     display: "flex",
     flexDirection: "column",
     gap: 6,
+    marginBottom: "1rem",
   },
   label: {
     fontFamily: "sans-serif",
-    fontSize: 11,
-    letterSpacing: "1px",
+    fontSize: 13,
+    color: "#5a4f3f",
+    fontWeight: 500,
+  },
+  uploadArea: {
+    border: "1.5px dashed #d4c9b0",
+    borderRadius: 10,
+    padding: "2rem",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: 6,
+    background: "#faf7f2",
+    cursor: "pointer",
+  },
+  uploadText: {
+    fontFamily: "sans-serif",
+    fontSize: 13,
     color: "#9e8f7a",
+    margin: 0,
+  },
+  uploadHint: {
+    fontFamily: "sans-serif",
+    fontSize: 11,
+    color: "#c4b8a0",
+    margin: 0,
   },
   input: {
     padding: "10px 14px",
@@ -214,6 +254,17 @@ const styles = {
     outline: "none",
     fontFamily: "sans-serif",
   },
+  select: {
+    padding: "10px 14px",
+    border: "1px solid #d4c9b0",
+    borderRadius: 8,
+    fontSize: 14,
+    background: "#faf7f2",
+    color: "#2e4520",
+    outline: "none",
+    fontFamily: "sans-serif",
+    width: "fit-content",
+  },
   btnPrimary: {
     padding: "10px 24px",
     background: "#3d5a2a",
@@ -224,6 +275,8 @@ const styles = {
     fontFamily: "sans-serif",
     cursor: "pointer",
     fontWeight: 500,
+    display: "flex",
+    alignItems: "center",
   },
   btnSecondary: {
     padding: "10px 24px",
@@ -235,96 +288,92 @@ const styles = {
     fontFamily: "sans-serif",
     cursor: "pointer",
   },
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gap: "1rem",
+  productList: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 8,
+    maxHeight: 400,
+    overflowY: "auto",
   },
-  card: {
-    background: "#fff",
-    border: "1px solid #e8e0d0",
-    borderRadius: 12,
-    overflow: "hidden",
-    cursor: "pointer",
-    transition: "transform 0.15s",
+  productRow: {
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+    padding: "10px 12px",
+    border: "1px solid #f0e8d8",
+    borderRadius: 10,
+    background: "#faf7f2",
   },
-  imageArea: {
-    height: 140,
+  thumb: {
+    width: 44,
+    height: 44,
+    borderRadius: 8,
     background: "#f2ece0",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    flexShrink: 0,
+    overflow: "hidden",
   },
-  image: {
-    height: "100%",
+  thumbImg: {
     width: "100%",
+    height: "100%",
     objectFit: "cover",
   },
-  cardBody: {
-    padding: "12px",
+  productInfo: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    gap: 3,
+    minWidth: 0,
   },
-  category: {
-    fontFamily: "sans-serif",
-    fontSize: 10,
-    letterSpacing: "1.5px",
+  categoryBadge: {
+    display: "inline-block",
+    padding: "2px 8px",
+    background: "#f2ece0",
     color: "#c8973a",
-    textTransform: "uppercase",
+    borderRadius: 10,
+    fontSize: 11,
+    fontFamily: "sans-serif",
+    fontWeight: 500,
+    width: "fit-content",
   },
   productName: {
-    fontSize: 14,
-    fontFamily: "Georgia, serif",
+    fontFamily: "sans-serif",
+    fontSize: 13,
     color: "#2e4520",
-    margin: "4px 0 6px",
-    lineHeight: 1.3,
+    fontWeight: 500,
   },
-  description: {
+  productPrice: {
     fontFamily: "sans-serif",
-    fontSize: 12,
-    color: "#9e8f7a",
-    lineHeight: 1.4,
-    marginBottom: 8,
-  },
-  price: {
-    fontFamily: "sans-serif",
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: 600,
-    color: "#3d5a2a",
-    margin: "0 0 10px",
+    color: "#c8973a",
+    flexShrink: 0,
   },
-  mad: {
-    fontSize: 11,
-    fontWeight: "normal",
-    color: "#9e8f7a",
-  },
-  actions: {
+  rowActions: {
     display: "flex",
-    gap: 8,
-    borderTop: "1px solid #f0e8d8",
-    paddingTop: 10,
+    gap: 6,
   },
-  btnEdit: {
-    flex: 1,
-    padding: "7px 0",
+  btnRowEdit: {
+    padding: "4px 10px",
     background: "#f2ece0",
     color: "#3d5a2a",
     border: "none",
     borderRadius: 6,
-    fontSize: 12,
+    fontSize: 11,
     fontFamily: "sans-serif",
     cursor: "pointer",
-    fontWeight: 500,
   },
-  btnDelete: {
-    flex: 1,
-    padding: "7px 0",
+  btnRowDelete: {
+    padding: "4px 10px",
     background: "#fdf0ee",
     color: "#c4623a",
     border: "none",
     borderRadius: 6,
-    fontSize: 12,
+    fontSize: 11,
     fontFamily: "sans-serif",
     cursor: "pointer",
-    fontWeight: 500,
   },
 }
 
