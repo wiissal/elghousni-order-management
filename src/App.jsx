@@ -33,7 +33,7 @@ function App() {   // Main App Component
               <Route path="/" element={<OrderCard />} />
 
               {/* Order Form */}
-              <Route path="/form" element={<OrderForm />} />
+              <Route path="/new-order" element={<OrderForm />} />
 
               {/* Orders List with FilterBar */}
               <Route
