@@ -1,32 +1,37 @@
+// FilterBar.jsx
 import "../App.css";
+import useStore from "../store/useStore";
 
-function FilterBar({ currentFilter, onFilterChange }) {
+function FilterBar() {
+  const filter = useStore((state) => state.filter); // Get current filter from Zustand
+  const setFilter = useStore((state) => state.setFilter); // Action to update filter
+
   return (
     <div className="filter-bar">
       <button
-        className={currentFilter === "all" ? "active" : ""}
-        onClick={() => onFilterChange("all")}
+        className={filter === "all" ? "active" : ""} // Shown if current filter is 'all'
+        onClick={() => setFilter("all")}
       >
-        All {/* Show all orders */}
+        All
       </button>
 
       <button
-        className={currentFilter === "pending" ? "active" : ""}
-        onClick={() => onFilterChange("pending")}
+        className={filter === "pending" ? "active" : ""} // Shown if current filter is 'pending'
+        onClick={() => setFilter("pending")}
       >
         Pending {/* Orders not yet prepared */}
       </button>
 
       <button
-        className={currentFilter === "prepared" ? "active" : ""}
-        onClick={() => onFilterChange("prepared")}
+        className={filter === "prepared" ? "active" : ""}
+        onClick={() => setFilter("prepared")}
       >
         Prepared
       </button>
 
       <button
-        className={currentFilter === "delivered" ? "active" : ""}
-        onClick={() => onFilterChange("delivered")}
+        className={filter === "delivered" ? "active" : ""}
+        onClick={() => setFilter("delivered")}
       >
         Delivered
       </button>

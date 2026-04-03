@@ -21,4 +21,4 @@ function ProductSelector({ selectedProduct, onSelectProduct }) {
   );
 }
 
-export default ProductSelector; // ✅ make sure it's exported as default
+export default ProductSelector; // make sure it's exported as default

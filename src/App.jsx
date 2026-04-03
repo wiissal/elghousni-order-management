@@ -2,29 +2,44 @@
 import React, { useState } from "react";
 import Navbar from "./components/navbar";
 import OrderForm from "./components/OrderForm";
-import OrderList from "./components/OrderList";
-import FilterBar from "./components/FilterBar";
 import OrderSummary from "./components/OrderSummary";
-import OrderCard from "./components/OrderCard";
+import FilterBar from "./components/FilterBar";
+import OrderList from "./components/OrderList";
+import Products from "./components/Products";
+import OrderDetails from "./components/orderDetails"; 
+import ProductDetails from "./components/ProductDetails";
 import "./App.css";
 
-function App() {
-  // STATE VARIABLES
-  const [orders, setOrders] = useState([]); // stores all orders
+function App() {   // Main App Component
+  return (
+    <Router> {/* Setting up Router for navigation*/} 
+      <div className="app-container">
+        {/* Top Navbar */}
+        <Navbar />
 
-  const [filter, setFilter] = useState("all"); // current filter ("all", "completed", etc.)
-  const [activePart, setActivePart] = useState("orderCard"); // which part of the UI is visible
+        <div className="layout">
+          {/* Sidebar for navigation */}
+          <Sidebar />
 
-  // FUNCTIONS
+          {/* Main content area */}
+          <main className="main-content">
+            <Routes>
+              {/* Home Route */}
+              <Route path="/" element={<OrderCard />} />
 
-  // Add a new order
-  const handleAddOrder = (newOrder) => {
-    setOrders([...orders, newOrder]); // add new order to orders array
-  };
+              {/* Order Form */}
+              <Route path="/form" element={<OrderForm />} />
 
-  // Filter orders for OrderList
-  const filteredOrders =
-    filter === "all" ? orders : orders.filter((o) => o.status === filter);
+              {/* Orders List with FilterBar */}
+              <Route
+                path="/orders"
+                element={
+                  <>
+                    <FilterBar />
+                    <OrderList />
+                  </>
+                }
+              />
 
   // render
   return (
@@ -63,13 +78,15 @@ function App() {
             </div>
           </div>
 
-          {/* Footer */}
-          <div className="footer">
-            <p>&copy; 2025 Elghousni Olive Cooperative. All rights reserved.</p>
-          </div>
+              {/* Fallback for unknown routes */}
+              <Route path="*" element={<h2>Page Not Found</h2>} />
+              {/* Product Details Page */}
+              <Route path="/products/:id" element={<ProductDetails />} />
+            </Routes>
+          </main>
         </div>
-      </Navbar>
-    </div>
+      </div>
+    </Router>
   );
 }
 

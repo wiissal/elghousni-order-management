@@ -1,70 +1,138 @@
-# Getting Started with Create React App
+# 🫒 Elghousni Order Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React application built for **Coopérative Elghousni**, a Moroccan agricultural cooperative specializing in olive oil and local products near Tanger. This app digitizes and streamlines their order management process — replacing paper-based tracking with a clean, fast interface.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📸 Preview
 
-### `npm start`
+> _Add a screenshot or screen recording of the app here_
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🎯 Features
 
-### `npm test`
+- 📋 **New Order Form** — capture client name, phone, products and quantities
+- 🛍️ **Product Catalog** — 8 products across 4 categories (Olive Oil, Olives, Honey, Derived Products)
+- 🧮 **Auto Total Calculation** — subtotals and grand total computed automatically
+- 📦 **Order List** — view all orders at a glance with client info and total
+- 🔍 **Filter by Status** — filter orders by All / Pending / Prepared / Delivered
+- 🏷️ **Status Badges** — color-coded visual indicators per order status
+- ✏️ **Update Status** — change order status as it progresses
+- 🗑️ **Delete Orders** — remove cancelled or duplicate orders
+- 📄 **Order Details** — full breakdown of products, quantities and prices
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🛠️ Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Technology | Usage |
+|---|---|
+| React 19 | UI Framework |
+| React Router v7 | Page navigation |
+| Zustand | Global state management |
+| CSS3 | Styling |
+| Create React App | Project setup |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🗂️ Project Structure
 
-### `npm run eject`
+```
+src/
+├── components/
+│   ├── FilterBar.jsx        # Filter orders by status
+│   ├── Navbar.jsx           # Navigation bar
+│   ├── OrderCard.jsx        # Individual order card
+│   ├── OrderDetails.jsx     # Full order details view
+│   ├── OrderForm.jsx        # New order form
+│   ├── OrderList.jsx        # List of all orders
+│   ├── OrderSummary.jsx     # Order summary with totals
+│   ├── ProductDetails.jsx   # Single product details
+│   ├── Products.jsx         # Product catalog display
+│   ├── ProductSelector.jsx  # Product selection in form
+│   ├── Sidebar.jsx          # Sidebar navigation
+│   └── StatusBadge.jsx      # Color-coded status badge
+├── data/
+│   └── products.js          # Product catalog data
+├── pages/
+│   ├── OrderListPage.jsx    # Orders list page
+│   └── OrdersPage.jsx       # Orders management page
+├── store/
+│   └── useStore.js          # Zustand global store
+├── App.jsx
+├── App.css
+└── index.js
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🛍️ Product Catalog
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+| Product | Category | Price (MAD) |
+|---|---|---|
+| Organic Extra Virgin Olive Oil 750ml | Olive Oil | 120 |
+| Organic Extra Virgin Olive Oil 1L | Olive Oil | 150 |
+| Natural Beldi Olives | Olives | 45 |
+| Marinated Beldi Olives | Olives | 50 |
+| Artisanal Black Olive Tapenade | Processed Products | 35 |
+| Natural Honey from the Region | Honey | 80 |
+| Olive Oil Soap | Derived Products | 25 |
+| Olive Jam | Derived Products | 40 |
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 📊 Order Statuses
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+| Status | Color | Meaning |
+|---|---|---|
+| 🟡 Pending | Amber | Order received, not yet prepared |
+| 🔵 Prepared | Blue | Order is ready for delivery |
+| 🟢 Delivered | Green | Order delivered to client |
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🚀 Getting Started
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Prerequisites
+- Node.js v18+
+- npm
 
-### Analyzing the Bundle Size
+### Installation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+# Clone the repository
+git clone https://github.com/wiissal/elghousni-order-management.git
 
-### Making a Progressive Web App
+# Navigate into the project
+cd elghousni-order-management
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# Install dependencies
+npm install
 
-### Advanced Configuration
+# Start the development server
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The app will run at [http://localhost:3000](http://localhost:3000)
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🔗 Links
 
-### `npm run build` fails to minify
+- 🔗 **Live Demo**: _coming soon_
+- 🎨 **Figma Design**: _[ Figma link here](https://www.figma.com/design/CQD0p4RAb07FRsSHHu8kfE/Elghousni-order-management?t=OOEs37g9IWBglrp1-1)_
+- 📋 **GitHub Projects**: [Project Board](https://github.com/wiissal/elghousni-order-management/projects)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## 👩‍💻 Author
+
+**Wissal** — Fullstack Developer  
+[LinkedIn](https://linkedin.com/in/wissalouboujemaa) · [GitHub](https://github.com/wiissal)
+
+---
+
+## 📄 License
+
+All rights reserved.
