@@ -7,24 +7,25 @@ export default function Navbar() {
   const todayOrders = orders.filter(
     (order) => new Date(order.createdAt).toDateString() === new Date().toDateString()
   )
-
   const pendingOrders = orders.filter((order) => order.status === 'pending')
-
   const dailyRevenue = todayOrders.reduce((sum, order) => sum + order.total, 0)
 
   const stats = [
-    { label: 'Orders Today', value: todayOrders.length, bg: '#3d5a2a' },
-    { label: 'Pending',      value: pendingOrders.length, bg: '#c4623a' },
-    { label: 'Daily Revenue', value: `${dailyRevenue.toLocaleString()} MAD`, bg: '#c8973a' },
+    { label: 'Orders Today', value: todayOrders.length,                        bg: '#3d5a2a' },
+    { label: 'Pending',      value: pendingOrders.length,                       bg: '#c4623a' },
+    { label: 'Daily Revenue', value: `${dailyRevenue.toLocaleString()} MAD`,   bg: '#c8973a' },
   ]
 
   return (
     <nav style={styles.navbar}>
+
+      {/* LEFT — logo */}
       <div style={styles.logo}>
-        
+      
         <h1 style={styles.title}>Coopérative Elghousni</h1>
       </div>
 
+      {/* CENTER — stats */}
       <div style={styles.statsRow}>
         {stats.map((stat, index) => (
           <motion.div
@@ -46,6 +47,12 @@ export default function Navbar() {
           </motion.div>
         ))}
       </div>
+
+      {/* RIGHT — balance spacer */}
+      <div style={styles.right}>
+        <span style={styles.tagline}>Tanger, Morocco 🇲🇦</span>
+      </div>
+
     </nav>
   )
 }
@@ -56,9 +63,9 @@ const styles = {
     background: '#fff',
     borderBottom: '1px solid #e8e0d0',
     padding: '0 1.5rem',
-    display: 'flex',
+    display: 'grid',
+    gridTemplateColumns: '1fr auto 1fr',
     alignItems: 'center',
-    justifyContent: 'space-between',
     position: 'sticky',
     top: 0,
     zIndex: 50,
@@ -66,7 +73,7 @@ const styles = {
   logo: {
     display: 'flex',
     alignItems: 'center',
-    gap: 10,
+    gap: 8,
   },
   title: {
     fontSize: 18,
@@ -97,5 +104,14 @@ const styles = {
   },
   pillValue: {
     fontWeight: 600,
+  },
+  right: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  tagline: {
+    fontSize: 12,
+    fontFamily: 'sans-serif',
+    color: '#9e8f7a',
   },
 }
