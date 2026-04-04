@@ -6,8 +6,22 @@ A React application built for **Coopérative Elghousni**, a Moroccan agricultura
 
 ## 📸 Preview
 
-> _Add a screenshot or screen recording of the app here_
+### 🛍️ Products
+![Products](./public/screenshots/Products.png)
 
+### 📋 New Order
+![New Order](./public/screenshots/neworder.png)
+![New Order](./public/screenshots/neworder-2.png)
+
+### 📦 Orders
+![Orders](./public/screenshots/orders.png)
+
+### 📊 Summary
+![Summary](./public/screenshots/summary.png)
+
+### ⚙️ Manage Products
+![Manage Products](./public/screenshots/manage-product.png)
+![Manage Products](./public/screenshots/manageproduct2.png)
 ---
 
 ## 🎯 Features
