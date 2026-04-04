@@ -28,18 +28,10 @@ function App() {   // Main App Component
               <Route path="/" element={<OrderCard />} />
 
               {/* Order Form */}
-              <Route path="/form" element={<OrderForm />} />
+              <Route path="/new-order" element={<OrderForm />} />
 
               {/* Orders List with FilterBar */}
-              <Route
-                path="/orders"
-                element={
-                  <>
-                    <FilterBar />
-                    <OrderList />
-                  </>
-                }
-              />
+              <Route path="/orders" element={<OrderList />} />
 
   // render
   return (

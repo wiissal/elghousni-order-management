@@ -7,7 +7,8 @@ const useStore = create((set) => ({
   filter: "all",          // Current filter state
   activePart: "orderCard", // Current active UI part
 
-  products: [],           // Optional: store products if needed
+  products: [], 
+  test : "",          // Optional: store products if needed
 
   // ACTIONS
   // Add a new order
@@ -25,11 +26,11 @@ const useStore = create((set) => ({
   // Switch the active part of the UI
   setActivePart: (part) => set({ activePart: part }),
 
-  // Optional: add a product
+  //  add a product
   addProduct: (product) =>
     set((state) => ({ products: [...state.products, product] })),
 
-  //  remove a product by ID
+  // remove a product by ID
   removeProduct: (id) =>
     set((state) => ({ products: state.products.filter((p) => p.id !== id) })),
 }));
