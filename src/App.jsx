@@ -1,11 +1,6 @@
 // App.jsx
-import React from "react"; 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; //enabling routing between pages
-
-// Components
-import Sidebar from "./components/Sidebar"; 
-import Navbar from "./components/navbar"; 
-import OrderCard from "./components/OrderCard";
+import React, { useState } from "react";
+import Navbar from "./components/navbar";
 import OrderForm from "./components/OrderForm";
 import OrderSummary from "./components/OrderSummary";
 import FilterBar from "./components/FilterBar";
@@ -38,14 +33,42 @@ function App() {   // Main App Component
               {/* Orders List with FilterBar */}
               <Route path="/orders" element={<OrderList />} />
 
-              {/* Order Details Page */}
-              <Route path="/orders/:id" element={<OrderDetails />} />
-
-              {/* Order Summary */}
-              <Route path="/summary" element={<OrderSummary />} />
-
-              {/* Products Management */}
-              <Route path="/manage" element={<Products />} />
+  // render
+  return (
+    <div className="App">
+      {/* Navbar */}
+      <Navbar setActivePart={setActivePart}>
+        <div style={{ width: "100%" }}>
+          <div className="main-container">
+            {/* Main content area */}
+            <div className="content">
+              {activePart === "orderCard" && <OrderCard />}
+              {activePart === "orderForm" && (
+                <OrderForm onAddOrder={handleAddOrder} />
+              )}
+              {activePart === "orderSummary" && (
+                <OrderSummary orders={orders} />
+              )}
+              {activePart === "orderList" && (
+                <>
+                  <FilterBar
+                    currentFilter={filter}
+                    onFilterChange={setFilter}
+                  />
+                  <OrderList orders={filteredOrders} />
+                </>
+              )}
+              {activePart === "filterBar" && (
+                <>
+                  <FilterBar
+                    currentFilter={filter}
+                    onFilterChange={setFilter}
+                  />
+                  <OrderList orders={filteredOrders} />
+                </>
+              )}
+            </div>
+          </div>
 
               {/* Fallback for unknown routes */}
               <Route path="*" element={<h2>Page Not Found</h2>} />

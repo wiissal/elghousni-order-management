@@ -5,12 +5,21 @@ function FilterBar() {
   const setFilter = useStore((state) => state.setFilter)
   const orders = useStore((state) => state.orders)
 
-  const filters = [
-    { value: "all",       label: "All Orders" },
-    { value: "pending",   label: "Pending" },
-    { value: "prepared",  label: "Prepared" },
-    { value: "delivered", label: "Delivered" },
-  ]
+  return (
+    <div className="filter-bar">
+      <button
+        className={filter === "all" ? "active" : ""} // Shown if current filter is 'all'
+        onClick={() => setFilter("all")}
+      >
+        All
+      </button>
+
+      <button
+        className={filter === "pending" ? "active" : ""} // Shown if current filter is 'pending'
+        onClick={() => setFilter("pending")}
+      >
+        Pending {/* Orders not yet prepared */}
+      </button>
 
   const getCount = (value) =>
     value === "all"
