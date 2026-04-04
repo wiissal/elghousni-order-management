@@ -36,15 +36,7 @@ function App() {   // Main App Component
               <Route path="/new-order" element={<OrderForm />} />
 
               {/* Orders List with FilterBar */}
-              <Route
-                path="/orders"
-                element={
-                  <>
-                    <FilterBar />
-                    <OrderList />
-                  </>
-                }
-              />
+              <Route path="/orders" element={<OrderList />} />
 
               {/* Order Details Page */}
               <Route path="/orders/:id" element={<OrderDetails />} />

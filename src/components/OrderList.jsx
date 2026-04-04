@@ -1,6 +1,7 @@
+import { useState } from "react"
 import useStore from "../store/useStore"
 import StatusBadge from "./StatusBadge"
-import { useState } from "react"
+import FilterBar from "./FilterBar"
 
 function OrderList() {
   const orders = useStore((state) => state.orders)
@@ -22,11 +23,19 @@ function OrderList() {
 
   return (
     <div style={styles.page}>
+
+      {/* Header */}
       <div style={styles.header}>
         <h2 style={styles.title}>Orders</h2>
         <p style={styles.subtitle}>Manage and track all customer orders</p>
       </div>
 
+      {/* FilterBar centered */}
+      <div style={styles.filterWrapper}>
+        <FilterBar />
+      </div>
+
+      {/* Empty state */}
       {filtered.length === 0 ? (
         <div style={styles.empty}>
           <p style={styles.emptyText}>No orders found</p>
@@ -41,6 +50,7 @@ function OrderList() {
 
                 {/* Main row */}
                 <div style={styles.row}>
+
                   {/* Avatar */}
                   <div style={styles.avatar}>
                     {getInitials(order.customerName)}
@@ -58,13 +68,15 @@ function OrderList() {
                     </span>
                   </div>
 
-                  {/* Right side */}
+                  {/* Right */}
                   <div style={styles.right}>
-                    <span style={styles.total}>{order.total || order.price * order.quantity || "—"} MAD</span>
+                    <span style={styles.total}>
+                      {order.total || (order.price * order.quantity) || "—"} MAD
+                    </span>
                     <span style={styles.date}>{formatDate(order.createdAt)}</span>
                   </div>
 
-                  {/* Expand toggle */}
+                  {/* Chevron */}
                   <button
                     style={styles.chevron}
                     onClick={() => setExpanded(isOpen ? null : order.id)}
@@ -76,6 +88,16 @@ function OrderList() {
                 {/* Expanded details */}
                 {isOpen && (
                   <div style={styles.details}>
+                    <div style={styles.detailRow}>
+                      <span style={styles.detailLabel}>Customer</span>
+                      <span style={styles.detailValue}>{order.customerName}</span>
+                    </div>
+                    {order.phone && (
+                      <div style={styles.detailRow}>
+                        <span style={styles.detailLabel}>Phone</span>
+                        <span style={styles.detailValue}>{order.phone}</span>
+                      </div>
+                    )}
                     <div style={styles.detailRow}>
                       <span style={styles.detailLabel}>Product</span>
                       <span style={styles.detailValue}>{order.product}</span>
@@ -94,6 +116,12 @@ function OrderList() {
                         {order.total || order.price * order.quantity} MAD
                       </span>
                     </div>
+                    <div style={styles.detailRow}>
+                      <span style={styles.detailLabel}>Status</span>
+                      <StatusBadge status={order.status} />
+                    </div>
+
+                    {/* Delete */}
                     <div style={styles.detailActions}>
                       <button
                         style={styles.deleteBtn}
@@ -119,7 +147,9 @@ const styles = {
     background: "#faf7f2",
     minHeight: "100vh",
   },
-  header: { marginBottom: "1.5rem" },
+  header: {
+    marginBottom: "1.5rem",
+  },
   title: {
     fontSize: 22,
     fontFamily: "Georgia, serif",
@@ -132,6 +162,11 @@ const styles = {
     fontSize: 13,
     color: "#9e8f7a",
     marginTop: 4,
+  },
+  filterWrapper: {
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "1.5rem",
   },
   empty: {
     textAlign: "center",
