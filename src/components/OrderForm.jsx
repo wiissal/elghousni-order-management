@@ -173,7 +173,7 @@ const styles = {
     padding: "2rem",
     background: "#faf7f2",
     minHeight: "100vh",
-    maxWidth: 600,
+    maxWidth: "100%",
   },
   header: { marginBottom: "1.5rem" },
   title: {
